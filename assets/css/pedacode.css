@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+svg {
+	font-family: "Alata", sans-serif;
+	width: 100%; height: 100%;
+}
+svg text {
+	animation: stroke 6s;
+	stroke-width: 0.5;
+	stroke: rgba(200,179,158,1);
+	font-size: 50px;
+    fill: rgba(200,179,158,1) ;
+}
+@keyframes stroke {
+	0%   {
+		fill: rgba(200, 179, 158, 0); stroke: rgba(255,255,255,1);
+		stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+	}
+	70%  {fill: rgba(200,179,158,0); stroke: rgba(255,255,255,1); }
+	80%  {fill: rgba(200,179,158,0); stroke: rgba(255,255,255,1); stroke-width: 3; }
+	100% {
+		fill: rgba(200,179,158,1); stroke: rgba(255,255,255,0);
+		stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+	}
+}
+
+.box {background-color: #15193100};

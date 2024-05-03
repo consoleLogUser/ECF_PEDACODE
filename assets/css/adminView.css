@@ -1,0 +1,30 @@
+h1{
+    color: white;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: bisque;
+}
+.selection{
+    display: flex;
+    flex-wrap: wrap;
+    color: #ffffff;
+    gap: 16px;
+    justify-content: space-around;
+}
+
+.saisie-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 16px;
+    color: white;
+}
+
+.instruction,.objectif,.html,.css{
+    display: flex;
+    flex-direction: column;
+}

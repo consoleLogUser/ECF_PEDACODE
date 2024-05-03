@@ -1,0 +1,102 @@
+
+body {
+    background-color: #151931;
+    color: white;
+    
+  }
+/* Les barres de progrès */
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar-inner {
+    height: 100%;
+    border-radius: 10px;
+    width: 25%;
+  }
+  
+/* Global a toute les sections */
+  .section {
+    margin-bottom: 20px;
+  }
+  /* Modifier mon mdp */
+  .section-title {
+    font-weight: bold;
+    color: #f2f2f2;
+    margin-bottom: 10px;
+  }
+  
+  .section-content {
+    background-color: #252841;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
+/* nom de compte */
+    .ndc{
+        color: black;
+        background-color:#C8B39E ;
+        width: 20%;
+        padding: 3px;
+        margin-bottom: 5px;
+        border: 1px solid #252841;;
+        border-radius: 7px;
+        float: inline-end;
+    }
+/* Mot de passe */
+    .mdp{
+        color: black;
+        background-color:#C8B39E ;
+        width: 20%;
+        padding: 3px;
+        margin-bottom: 5px;
+        border: 1px solid #252841;;
+        border-radius: 7px;
+        
+    }
+
+    /* Mon abonnement */
+ .section-title2 {
+        font-weight: bold;
+        color: #f2f2f2;
+        margin-bottom: 10px;
+      }
+      
+    .section-content2 {
+        background-color: #252841;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0 auto;
+      }
+
+      /* Supprimer mon compte */
+ .section-title3 {
+        font-weight: bold;
+        color: #f2f2f2;
+        margin-bottom: 10px;
+      }
+      
+    .section-content3 {
+        background-color: #252841;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0 auto;
+        color: white;
+      }
+
+      .supprimer{
+        align-content: center;
+        background-color:#C8B39E ;
+        color: rgb(0, 0, 0);
+        width: 40%;
+        padding: 3px;
+        margin-bottom: 5px;
+        border-radius: 7px;
+      }

@@ -1,0 +1,37 @@
+Workspace:
+- Contient des données de la table code, similaire à un dossier.
+- Un workspace peut être référencé par plusieurs données code si par exemple un exercice propose de coder dans deux langages distincts (plusieurs éditeurs).
+- Créer un Workspace en appelant la fonction sql (create_playg_workspace ou create_less_workspace).
+
+Code:
+- Chaque donnée contient du code sur un seul langage, code est similaire à un fichier qu'on connait tous.
+- Un workspace supprimé c'est aussi toutes les données des tables Code associés qui sont supprimés.
+
+Category:
+- Une categorie référence des Chapters.
+- Supprimer une catégorie supprime les chapitres qui suppriment à leur tour les leçons (et les workspace associés) !!
+
+Chapter:
+- Un chapitre référence des Lesson.
+- Supprimer un chapitre supprime les leçons (et les workspace associés) !!
+
+Lesson:
+- Représente un exercice.
+- Le Code d'une Lesson peut-être sauvegardé dans un workspace.
+- Une leçon supprimée et le workspace associé sera aussi supprimé.
+
+Goal:
+- Représente un objectif, une leçon contient plusieurs objectifs qui définie ce que l'utilisateur doit accomplir pour valider ce dernier.
+
+WorkspacePlayg:
+- Cette table lie un workspace avec un utilisteur pour le mode playground.
+
+WorkspaceLess:
+- Cette table lie un workspace avec un utilisteur pour les exercices (Lesson).
+
+UserProfile:
+- Représente un utilisateur enregistré et même un admin avec le rôle "admin".
+- Quand un utilisateur est supprimé c'est aussi tout son workspace ainsi que sa progression par rapport aux exercices qui sont supprimés, c'est donc une importante suppression en cascade (avec les triggers).
+
+Subscription:
+- Représente les abonnements, au départ il y a 2 entrées, un 'none' et un autre 'premium', par défaut l'utilisateur est en 'none', ceci est défini par sa valeur id_sub qui pointe vers le type d'abonnement (donc id_sub = 1 car l'entrée avec l'identifiant 1 est égal à 'none').
