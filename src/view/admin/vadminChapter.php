@@ -26,13 +26,13 @@ $navbar = ob_get_clean();
                 </div>
             </div>
             <section id="gestionChapitre" class="p-2 flex flex-row flex-wrap gap-4 justify-center items-center w-full bg-primary-regular-dm">
-                <?php foreach ($chapitres as $chapitre) { ?>
+                <?php foreach ($chapters as $chapitre) { ?>
                     <div class=" rounded-lg p-2 bg-nightsky-dark-dm flex flex-col gap-2 items-center justify-center ">
                         <span class=" text-center font-semibold "><?= $chapitre->getTitle() ?> - [id : <?= $chapitre->getId() ?>]</span>
                         <div class=" flex flex-row items-center gap-2 ">
                             <a href="<?= APP_ROOT ?>/adminLesson?categoryId=<?= $categoryId ?>&chapitreId=<?= $chapitre->getId() ?>" class=" rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm ">Voir</a>
-                            <a href="<?= APP_ROOT ?>/adminEditChap?categoryId=<?= $categoryId ?>&chapitreId=<?= $chapitre->getId() ?>" class="rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm">Editer</a>
-                            <form class="mb-0" method="post" action="<?= APP_ROOT ?>/adminChapterDelChap?categoryId=<?= $_GET['categoryId'] ?>">
+                            <a href="<?= APP_ROOT ?>/EditChapter?categoryId=<?= $categoryId ?>&chapitreId=<?= $chapitre->getId() ?>" class="rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm">Editer</a>
+                            <form class="mb-0" method="post" action="<?= APP_ROOT ?>/DelChapter?categoryId=<?= $_GET['categoryId'] ?>">
                                 <input type="hidden" name="idChap" value="<?= $chapitre->getId() ?>">
                                 <button type="submit" class="rounded p-1 bg-red-500 text-white hover:text-gray-50 hover:bg-red-600 ">Supprimer</button>
                             </form>
@@ -40,7 +40,7 @@ $navbar = ob_get_clean();
                     </div>
                 <?php } ?>
             </section>
-            <form action="<?= APP_ROOT ?>/adminChapterAjoutChap?categoryId=<?= $categoryId ?>" method="post" class="flex flex-col justify-around items-center bg-primary-light-dm">
+            <form action="<?= APP_ROOT ?>/addChapter?categoryId=<?= $categoryId ?>" method="post" class="flex flex-col justify-around items-center bg-primary-light-dm">
                 <div class="selection-chapitre p-3">
                     <p class="text-nightsky-dark-dm">ID de la catégorie : <?= $categoryId ?></p>
                     <label for="newChapitre" class="text-nightsky-dark-dm">Nom du chapitre :</label>

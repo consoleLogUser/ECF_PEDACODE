@@ -10,16 +10,16 @@ $navbar = ob_get_clean();
 <section class="flex flex-col min-h-screen">
     <main class="flex-1 flex flex-col gap-6 my-6">
         <h1 class="text-center text-primary-light-dm">Editer le Chapitre</h1>
-        <a href="<?= APP_ROOT ?>/adminChapter?categoryId=<?= $categoryId->getId() ?>" class="pl-3"> <i class="fa-solid fa-chevron-left"></i> Revenir en arriere</a>
+        <a href="<?= APP_ROOT ?>/adminChapter?categoryId=<?= $categoryId ?>" class="pl-3"> <i class="fa-solid fa-chevron-left"></i> Revenir en arriere</a>
         <section id="editChapitre" class="p-2 flex flex-row flex-wrap gap-4 justify-center items-center w-full bg-primary-regular-dm">
-            <form action="<?= APP_ROOT ?>/adminUpdateChap?categoryId=<?= $categoryId->getId() ?>&chapitreId=<?= $chapitreId->getId() ?>" method="post">
+            <form action="<?= APP_ROOT ?>/updateChapter?categoryId=<?= $categoryId ?>&chapitreId=<?= $chapitreId ?>" method="post">
                 <div class=" rounded-lg p-2 bg-nightsky-dark-dm flex flex-col gap-2 items-center justify-center  ">
                     <div>
-                        <input type="text" name="edit_chap_name" id="edit_chap_name" value="<?= $chapitreId->getTitle() ?>">
+                        <input type="text" name="edit_chap_name" id="edit_chap_name" value="<?= $chapitre->getTitle() ?>">
                     </div>
                     <div>
                         <select name="chap_id" id="chap_id">
-                            <option value="<?= $chapitreId->getId() ?>"><?= $chapitreId->getId() ?></option>
+                            <option value="<?= $chapitre->getId() ?>"><?= $chapitre->getId() ?></option>
                         </select>
                     </div>
                     <button type="submit" class="bg-primary-light-dm m-auto p-2 rounded text-white hover:bg-primary-dark-dm ">Editer</button>

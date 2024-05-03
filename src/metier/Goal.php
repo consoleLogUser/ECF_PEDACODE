@@ -10,7 +10,7 @@ class Goal
         private int $id_goal,
         private string $descr_goal,
         private string $condi_goal,
-        private int $lessonId 
+        private Lesson $lesson
     ) {
     }
 
@@ -39,14 +39,14 @@ class Goal
         $this->condi_goal = $condi_goal;
     }
 
-    public function getLessonId(): int // Ajouter cette méthode pour obtenir l'ID de la leçon
+    public function getLesson(): Lesson
     {
-        return $this->lessonId;
+        return $this->lesson;
     }
 
-    public function setLessonId(int $lessonId): void // Ajouter cette méthode pour définir l'ID de la leçon
+    public function setLesson(Lesson $lesson): void 
     {
-        $this->lessonId = $lessonId;
+        $this->lesson = $lesson;
     }
 }
 

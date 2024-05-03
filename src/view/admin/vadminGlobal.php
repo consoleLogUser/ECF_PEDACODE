@@ -12,7 +12,7 @@ $navbar = ob_get_clean();
   <main class="flex-1 flex flex-col gap-6 my-6">
     <h1 class="text-center text-primary-light-dm">Gerez les Categories</h1>
     <section id="gestionCategories" class="p-2 flex flex-row flex-wrap gap-4 justify-center items-center w-full bg-primary-regular-dm">
-      <?php foreach ($categorie as $cat) { ?>
+      <?php foreach ($categories as $cat) { ?>
         <div class=" rounded-lg p-2 bg-nightsky-dark-dm flex flex-col gap-2 items-center justify-center  ">
           <span class=" text-center font-semibold "><?= $cat->getName() ?> - [id : <?= $cat->getId() ?>]</span>
           <div class=" flex flex-row items-center gap-2 ">
@@ -34,14 +34,12 @@ $navbar = ob_get_clean();
         <div class="title flex flex-col flex-wrap ">
           <label for="title">Titre de la categorie :</label>
           <input id="title" name="new_category_name" type="text">
-          <label for="id_cat">Id de la categorie :</label>
-          <input id="id_cat" name="new_category_id" type="number">
         </div>
         <button type="submit" class="bg-primary-light-dm m-auto p-2 rounded text-white hover:bg-primary-dark-dm ">Ajouter</button>
       </form>
     </section>
     <hr>
-    <section>
+    <!-- <section>
       <h2 class="text-center">Gerez les langages</h2>
       <section class="p-2 flex flex-row flex-wrap gap-4 justify-center items-center w-full bg-primary-regular-dm">
         <?php foreach ($langages as $langage) { ?>
@@ -70,7 +68,7 @@ $navbar = ob_get_clean();
           </div>
           <button type="submit" class="bg-primary-light-dm m-auto p-2 rounded text-white hover:bg-primary-dark-dm ">Ajouter</button>
         </form>
-      </section>
+      </section> -->
 
     </section>
   </main>

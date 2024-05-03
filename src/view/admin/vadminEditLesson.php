@@ -26,7 +26,7 @@ $navbar = ob_get_clean();
                 <div class="selection-chapitre">
                     <label for="chapitre" class="text-nightsky-dark-dm">Nom Chapitre :</label>
                     <select id="chapitre" name="chapitre">
-                        <?php foreach ($chapitres as $chapitre) { ?>
+                        <?php foreach ($chapters as $chapitre) { ?>
                             <option value="<?= $chapitre->getId() ?>" <?php if (isset($_GET['chapitreId']) && $_GET['chapitreId'] == $chapitre->getId()) echo 'selected'; ?> disabled> <?= $chapitre->getTitle() ?>
                             </option>
                         <?php } ?>
@@ -56,7 +56,9 @@ $navbar = ob_get_clean();
                     <div class="w-full flex flex-col items-center justify-center">
                         <label for="objectif" class="text-nightsky-dark-dm">Objectif :</label>
                         <textarea name="objectif" id="objectif" rows="10" class="text-nightsky-dark-dm w-[90%]" required>
-<?= $goal->getDescrGoal() ?></textarea>
+<?php foreach ($goals as $goal) {
+    echo $goal->getDescrGoal() . "\n";
+} ?></textarea>
                     </div>
 
                     <!--Faire les conditions objectifs-->

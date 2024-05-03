@@ -17,7 +17,7 @@ $navbar = ob_get_clean();
                 <div class="selection-chapitre">
                     <label for="chapitre" class="text-nightsky-dark-dm">ID du chapitre :</label>
                     <select id="chapitre" name="chapitre" required>
-                        <?php foreach ($chapitres as $chapitre) { ?>
+                        <?php foreach ($chapters as $chapitre) { ?>
                             <option value="<?= $chapitre->getId() ?>" <?php if (isset($_GET['chapitreId']) && $_GET['chapitreId'] == $chapitre->getId()) echo 'selected'; ?> disabled> <?= $chapitre->getTitle() ?>
                             </option>
                         <?php } ?>
@@ -30,7 +30,7 @@ $navbar = ob_get_clean();
                         <span class=" text-center font-semibold "><?= $lesson->getTitleLes() ?> - [id : <?= $lesson->getIdLes() ?>]</span>
                         <div class=" flex flex-row items-center gap-2 ">
                             <a href="<?= APP_ROOT ?>/adminEditLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>&lessonId=<?= $lesson->getIdLes() ?>" class=" rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm ">Modifier</a>
-                            <form class="mb-0" method="post" action="<?= APP_ROOT ?>/adminLessonDel?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>">
+                            <form class="mb-0" method="post" action="<?= APP_ROOT ?>/delLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>">
                                 <input type="hidden" name="idDelLess" value="<?= $lesson->getIdLes() ?>">
                                 <input type='hidden' name='action' value='delete'>
                                 <button type="submit" class="rounded p-1 bg-red-500 text-white hover:text-gray-50 hover:bg-red-600 ">Supprimer</button>
@@ -41,13 +41,12 @@ $navbar = ob_get_clean();
             </section>
         </div>
         <div class="flex justify-center my-6">
-            <form action="<?= APP_ROOT ?>/adminLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>" method="post">
+            <form action="<?= APP_ROOT ?>/addLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>" method="post">
+                <input type="hidden" name="chapterId" value="<?= $_GET['chapitreId'] ?>">
                 <label for="addLesson">Nom de la leçon : </label>
                 <input type="text" name="addLesson" id="addLesson" class="text-nightsky-dark-dm">
                 <button type="submit" class="rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm">Ajouter une leçon</button>
             </form>
-
-            <!-- <a href="<?= APP_ROOT ?>/adminAddLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>" class="rounded p-1 bg-primary-regular-dm text-white hover:text-gray-50 hover:bg-primary-dark-dm">Ajouter une leçon</a> -->
         </div>
 
     </main>

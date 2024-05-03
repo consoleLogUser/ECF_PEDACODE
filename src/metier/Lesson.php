@@ -6,14 +6,13 @@ namespace pedacode\metier;
 
 class Lesson
 {
+    private array $goals = []; 
     public function __construct(
         private int $id_les,
-        private int $id_chap,
-        private int $id_sub,
+        private Chapter $chapter,  
+        private ?int $id_sub,
         private string $title_les,
-        private string $instr_les,
-        // private \DateTimeInterface $creation ,
-
+        private ?string $instr_les
     ) {
     }
 
@@ -22,42 +21,37 @@ class Lesson
         return $this->id_les;
     }
 
-    public function setIdLes($id_les): void
+    public function setIdLes(int $id_les): void
     {
         $this->id_les = $id_les;
+    }
+
+    public function getChapter(): Chapter
+    {
+        return $this->chapter;
+    }
+
+    public function setChapter(Chapter $chapter): void
+    {
+        $this->chapter = $chapter;
     }
 
     public function getTitleLes(): string
     {
         return $this->title_les;
     }
-    public function setTitleLes($title_les): void
+
+    public function setTitleLes(string $title_les): void
     {
         $this->title_les = $title_les;
     }
-
-
-    public function getIdChap(): int
-    {
-        return $this->id_chap;
-    }
-
-    // public function getCreationToString(): string
-    // {
-    //     return $this->creation->format('d/m/Y');;
-    // }
-
-    // public function setCreation(\DateTimeInterface $creation): void
-    // {
-    //     $this->creation = $creation;
-    // }
 
     public function getIdSub(): int
     {
         return $this->id_sub;
     }
 
-    public function setIdSub($id_sub): void
+    public function setIdSub(int $id_sub): void
     {
         $this->id_sub = $id_sub;
     }
@@ -67,8 +61,18 @@ class Lesson
         return $this->instr_les;
     }
 
-    public function setInstrLes($instr_les): void
+    public function setInstrLes(string $instr_les): void
     {
         $this->instr_les = $instr_les;
+    }
+
+    public function getGoals(): array
+    {
+        return $this->goals;
+    }
+
+    public function addGoal(Goal $goal): void
+    {
+        $this->goals[] = $goal;
     }
 }
