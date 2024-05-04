@@ -12,7 +12,7 @@ $navbar = ob_get_clean();
     <main class="flex-1 flex flex-col gap-6 my-6">
         <h1 class="text-center text-primary-light-dm">Modifier un cours</h1>
         <a href="<?= APP_ROOT ?>/adminLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>" class="pl-3"> <i class="fa-solid fa-chevron-left"></i> Revenir en arriere</a>
-        <div class="flex flex-col justify-around items-center bg-primary-light-dm">
+        <form action="<?= APP_ROOT ?>/updateLesson?categoryId=<?= $_GET['categoryId'] ?>&chapitreId=<?= $_GET['chapitreId'] ?>&lessonId=<?= $_GET['lessonId'] ?>" method="post" class="flex flex-col justify-around items-center bg-primary-light-dm">
             <div class="flex flex-wrap text-white gap-4 justify-around my-6 ">
                 <div class="selection-langage">
                     <label for="category" class="text-nightsky-dark-dm">La categorie est :</label>
@@ -34,7 +34,6 @@ $navbar = ob_get_clean();
                 </div>
                 <div class="selection-lesson">
                     <label for="title-lesson" class="text-nightsky-dark-dm">Nom Leçon :</label>
-                    <input type="hidden" id="id-lesson" value="<?= $lesson->getIdLes() ?>">
                     <input type="text" name="title-lesson" id="title-lesson" class="text-nightsky-dark-dm" required value="<?= $lesson->getTitleLes() ?>">
                 </div>
                 <!-- <div class="selection-date">
@@ -55,13 +54,13 @@ $navbar = ob_get_clean();
                     </div>
                     <div class="w-full flex flex-col items-center justify-center">
                         <label for="objectif" class="text-nightsky-dark-dm">Objectif :</label>
-                        <textarea name="objectif" id="objectif" rows="10" class="text-nightsky-dark-dm w-[90%]" required>
+                        <textarea name="objectif" id="objectif" rows="10" class="text-nightsky-dark-dm w-[90%]" >
 <?php foreach ($goals as $goal) {
     echo $goal->getDescrGoal() . "\n";
 } ?></textarea>
                     </div>
 
-                    <!--Faire les conditions objectifs-->
+                    
 
                 </div>
                 <div class="w-full  ">
@@ -74,7 +73,7 @@ $navbar = ob_get_clean();
             <div class="button my-6">
                 <button id="submit" class="bg-nightsky-dark-dm m-auto p-2 rounded text-white hover:bg-nightsky-light-dm ">Soumettre</button>
             </div>
-        </div>
+        </form>
     </main>
 </section>
 <p><?= $message ?? '' ?></p>

@@ -298,7 +298,7 @@ class CtrlPedacode
 
     public function getEditChapter(): void
     {
-         $categoryId = (int)$_GET['categoryId'];
+        $categoryId = (int)$_GET['categoryId'];
         // Récupérer l'identifiant du chapitre depuis l'URL et vérifier sa validité
         $chapitreId = (int)$_GET['chapitreId'];
         if ($chapitreId <= 0) {
@@ -320,7 +320,7 @@ class CtrlPedacode
 
     public function updateChapter(): void
     {
-       
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['chap_id'], $_POST['edit_chap_name'])) {
             $chapitreId = (int)$_POST['chap_id'];
             $newTitle = trim($_POST['edit_chap_name']);
@@ -364,7 +364,6 @@ class CtrlPedacode
 
     public function getAdminEditLesson(): void
     {
-        // Récupérer les IDs depuis l'URL et vérifier leur validité
         $lessonId = (int)$_GET['lessonId'];
         $chapterId = (int)$_GET['chapitreId'];
         $categoryId = (int)$_GET['categoryId'];
@@ -376,8 +375,8 @@ class CtrlPedacode
             throw new \Exception("Paramètres invalides.");
         }
 
-        // Récupérer les informations de la leçon à éditer en fonction du chapitre
-        $lessons = $this->daoPedacode->selectLessonByChapterId($chapterId); // Correction: Utiliser $chapterId pour récupérer les leçons
+
+        $lessons = $this->daoPedacode->selectLessonByChapterId($chapterId);
         if (empty($lessons)) {
             error_log("Aucune leçon trouvée pour le chapitre ID: $chapterId");
             throw new \Exception("Aucune leçon trouvée pour le chapitre ID: $chapterId");
@@ -400,7 +399,6 @@ class CtrlPedacode
         $goals = $this->daoPedacode->getGoalsByLessonId($lessonId);
         if (empty($goals)) {
             error_log("Aucun objectif trouvé pour la leçon ID: $lessonId");
-            // Note: Vous pouvez choisir de ne pas lancer une exception ici si ce n'est pas critique
         }
 
         $abonnementChecked = '';
@@ -465,11 +463,57 @@ class CtrlPedacode
         }
     }
 
-    //#######################//
-    //##### ADMIN EDIT ######//
-    //#######################//
+    public function updateLesson(): void
+    {
+        $categoryId = isset($_GET['categoryId']) ? (int)$_GET['categoryId'] : 0;
+        if ($categoryId <= 0) {
+            throw new \Exception("Identifiant de catégorie invalide.");
+        }
+        $chapters = $this->daoPedacode->getChapitresByCategory($categoryId);
+        $chapterId = isset($_GET['chapitreId']) ? (int)$_GET['chapitreId'] : 0;
+        if ($chapterId <= 0) {
+            throw new \Exception("Identifiant de chapitre invalide.");
+        }
+    
+        $lessonId = isset($_GET['lessonId']) ? (int)$_GET['lessonId'] : 0;
+        $lessonTitle = isset($_POST['title-lesson']) ? $_POST['title-lesson'] : '';
+        $lessonInstructions = isset($_POST['instruction']) ? $_POST['instruction'] : '';
+        $sub = isset($_POST['abonnement']) && $_POST['abonnement'] === 'on' ? 2 : 1;
 
+        // var_dump($lessonId);
+        // var_dump($lessonTitle);
+        // var_dump($lessonInstructions);
+        // var_dump($sub);
+        // var_dump($chapterId);
+        // var_dump($categoryId);
+        if ($lessonId <= 0 || empty($lessonTitle) || empty($lessonInstructions) || $sub <= 0) {
+            throw new \Exception("Paramètres invalides pour la mise à jour de la leçon.");
+        }
+    
+        $existingChapter = $this->daoPedacode->selectChapitreById($chapterId); 
+        $lesson = new Lesson(
+            $lessonId,
+            $existingChapter, 
+            $sub,
+            $lessonTitle,
+            $lessonInstructions
+        );
 
+    
+        try {
+            $result = $this->daoPedacode->updateLesson($lesson);
+            if ($result) {
+                header("Location: " . APP_ROOT . "/adminEditLesson?categoryId=" . $categoryId . "&chapitreId=" . $chapterId . "&lessonId=" . $_GET['lessonId']);
+                exit();
+            } else {
+                throw new \Exception("Échec de la mise à jour de la leçon.");
+            }
+        } catch (\Exception $e) {
+            error_log("Erreur lors de la mise à jour de la leçon : " . $e->getMessage());
+            throw $e;
+        }
+    }
+    
 
 
 

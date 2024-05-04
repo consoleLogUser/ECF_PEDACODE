@@ -72,11 +72,11 @@ elseif ($method == 'post' && !$isRequestAjax) { // Non ajax et methode post (mod
         // APP_ROOT .'/adminGlobalDelLang'    => $ctrlPedacode->postDelLangage(),
         APP_ROOT .'/addChapter'            => $ctrlPedacode->addChapter(),
         APP_ROOT .'/DelChapter'            => $ctrlPedacode->delChapter(),
-        APP_ROOT .'/updateChapter'       => $ctrlPedacode->updateChapter(),
-        APP_ROOT .'/addLesson'           => $ctrlPedacode->addLessonByChapter(),
-        APP_ROOT .'/delLesson'        => $ctrlPedacode->deleteLesson(),
+        APP_ROOT .'/updateChapter'         => $ctrlPedacode->updateChapter(),
+        APP_ROOT .'/addLesson'             => $ctrlPedacode->addLessonByChapter(),
+        APP_ROOT .'/delLesson'             => $ctrlPedacode->deleteLesson(),
+        APP_ROOT .'/updateLesson'          => $ctrlPedacode->updateLesson(),
         // APP_ROOT .'/adminUpdateLang'       => $ctrlPedacode->postadminUpdateLang(),
-        // APP_ROOT .'/adminEditLesson'            => $ctrlPedacode->updateLesson(),
         default                            => $ctrlPedacode->getNotFound(),
     };
 }

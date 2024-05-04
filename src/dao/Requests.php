@@ -37,7 +37,10 @@ class Requests
 
     //CRUD CHAPTER //
     public const SELECT_CHAPTERS_BY_CATEGORY = "SELECT id_ch, title_ch, chapter.id_cat, name_cat FROM chapter JOIN category ON chapter.id_cat = category.id_cat WHERE category.id_cat = :categoryId";
-    public const SELECT_CHAPTER_BY_ID = "SELECT id_ch, title_ch, chapter.id_cat, name_cat FROM chapter JOIN category ON chapter.id_cat = category.id_cat WHERE id_ch = :id_ch";
+    public const SELECT_CHAPTER_BY_ID = " SELECT ch.id_ch, ch.title_ch, cat.name_cat, cat.id_cat
+    FROM chapter AS ch
+    JOIN category AS cat ON ch.id_cat = cat.id_cat
+    WHERE ch.id_ch = :id_ch";
     public const ADD_CHAPTER = "INSERT INTO chapter (title_ch, id_cat) VALUES (:title_ch, :id_cat)";
     public const DELETE_CHAPTER_BY_ID = "DELETE FROM chapter WHERE id_ch = :id_ch";
     public const UPDATE_CHAPTER = "UPDATE chapter SET title_ch = :title_ch WHERE id_ch = :id_ch";
@@ -59,7 +62,12 @@ class Requests
     public const ADD_LESSON_BY_CHAPTER = "insert into Lesson (title_les,id_ch) values (:title_les,:id_ch)";
     public const DELETE_LESSON_BY_ID = "delete from Lesson where id_les = :id_les";
     public const UPDATE_LESSON = "update lesson set title_les = :title_les, instr_les = :instr_les, id_sub = :id_sub where id_les = :id_les";
-    public const SELECT_GOAL_BY_LESSON = "select * from Goal where id_les = :lessonId";
+    public const SELECT_GOALS_BY_LESSON_ID = "SELECT g.*, c.name_cat, c.id_cat, ch.id_ch, ch.title_ch, l.id_sub, l.title_les, l.instr_les
+    FROM Goal g
+    JOIN Lesson l ON g.id_les = l.id_les
+    JOIN Chapter ch ON l.id_ch = ch.id_ch
+    JOIN Category c ON ch.id_cat = c.id_cat
+    WHERE l.id_les = :lessonId";
     public const INSERT_GOAL_BY_LESSON = "insert into goal (descr_goal,condi_goal id_les) values (:descr_goal,:condi_goal, :id_les)";
     public const UPDATE_GOAL_BY_LESSON = "UPDATE goal SET descr_goal = :descr_goal, condi_goal = :condi_goal WHERE id_les = :id_les";
 
