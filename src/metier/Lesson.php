@@ -56,7 +56,7 @@ class Lesson
         $this->id_sub = $id_sub;
     }
 
-    public function getInstrLes(): string
+    public function getInstrLes(): ?string
     {
         return $this->instr_les;
     }

@@ -52,13 +52,13 @@ $navbar = ob_get_clean();
                         <label for="instruction" class="text-nightsky-dark-dm">Instruction :</label>
                         <textarea name="instruction" id="instruction" rows="10" class="text-nightsky-dark-dm w-[90%]" required><?= $selectedInstruction ?></textarea>
                     </div>
-                    <div class="w-full flex flex-col items-center justify-center">
+                    <!-- <div class="w-full flex flex-col items-center justify-center">
                         <label for="objectif" class="text-nightsky-dark-dm">Objectif :</label>
                         <textarea name="objectif" id="objectif" rows="10" class="text-nightsky-dark-dm w-[90%]" >
 <?php foreach ($goals as $goal) {
     echo $goal->getDescrGoal() . "\n";
 } ?></textarea>
-                    </div>
+                    </div> -->
 
                     
 

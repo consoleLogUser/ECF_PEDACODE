@@ -395,18 +395,19 @@ class CtrlPedacode
             throw new \Exception("Leçon non trouvée avec l'ID: $lessonId");
         }
 
-        // Récupérer les objectifs associés à la leçon
-        $goals = $this->daoPedacode->getGoalsByLessonId($lessonId);
-        if (empty($goals)) {
-            error_log("Aucun objectif trouvé pour la leçon ID: $lessonId");
-        }
+        // /!\ Fonctionelle mais pas encore implémentée /!\
+        // // Récupérer les objectifs associés à la leçon
+        // $goals = $this->daoPedacode->getGoalsByLessonId($lessonId);
+        // if (empty($goals)) {
+        //     error_log("Aucun objectif trouvé pour la leçon ID: $lessonId");
+        // }
 
-        $abonnementChecked = '';
         $selectedInstruction = $lessonToEdit->getInstrLes();
+        $abonnementChecked = '';
         if ($lessonToEdit->getIdSub() === 2) {
             $abonnementChecked = 'checked';
         }
-
+        
         // Récupérer les chapitres pour la liste déroulante
         $chapters = $this->daoPedacode->getChapitresByCategory($categoryId);
         if (empty($chapters)) {
