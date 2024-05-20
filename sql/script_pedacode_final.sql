@@ -1,11 +1,11 @@
-drop database pedacode;
+drop database pedacode; -- Ne pas executer si la premiere fois 
 
 -- Création base de données
 create database pedacode;
 
 -- Utilisation base de donnée
 use pedacode;
-
+SET default_storage_engine=INNODB;
 
 -- Suppression tables
 drop table if exists WkPlayg;

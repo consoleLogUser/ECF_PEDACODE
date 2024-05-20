@@ -139,12 +139,6 @@ class CtrlPedacode
     //#### ADMIN GLOBAL ####//
     //######################//
 
-    // private function fetchChaptersAndLessons(int $categoryId, int $chapterId) {
-    //     $chapters = $this->daoPedacode->getChapitresByCategory($categoryId);
-    //     $lessons = $this->daoPedacode->selectLessonByChapterId($chapterId);
-    //     return ['chapters' => $chapters, 'lessons' => $lessons];
-    // }
-
     public function getadminGlobal(): void
     {
         $categories = $this->daoPedacode->getCategories();
@@ -219,7 +213,6 @@ class CtrlPedacode
             header('Location: ' . APP_ROOT . '/adminGlobal');
             exit();
         }
-
     }
 
     public function updateCategory(): void
@@ -269,7 +262,7 @@ class CtrlPedacode
                     $category = new Category("", $categoryId); // Le nom n'est pas nécessaire pour l'insertion du chapitre
                     // Création de l'objet Chapter
                     $chapter = new Chapter(0, $chapterTitle, $category); // L'ID du chapitre est mis à 0 car il sera généré par la base de données
-    
+
                     // Appel à la méthode addChapitre de DaoPedacode
                     $this->daoPedacode->addChapitre($chapter);
                     $_SESSION['message'] = "Chapitre ajouté avec succès.";
@@ -281,7 +274,6 @@ class CtrlPedacode
             }
         }
         header('Location: ' . APP_ROOT . '/adminChapter?categoryId=' . $categoryId);
-
     }
 
     public function delChapter(): void
@@ -325,63 +317,37 @@ class CtrlPedacode
         require './view/admin/vadminEditChapter.php';
     }
 
-    // public function updateChapter(): void
-    // {
-
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['chap_id'], $_POST['edit_chap_name'])) {
-    //         $chapitreId = (int)$_POST['chap_id'];
-    //         $newTitle = trim($_POST['edit_chap_name']);
-
-    //         if ($chapitreId > 0 && !empty($newTitle)) {
-    //             try {
-    //                 $updated = $this->daoPedacode->updateChapitre($chapitreId, $newTitle);
-    //                 if ($updated) {
-    //                     $_SESSION['message'] = "Chapitre mis à jour avec succès.";
-    //                 } else {
-    //                     $_SESSION['error'] = "Mise à jour du chapitre échouée.";
-    //                 }
-    //             } catch (\Exception $e) {
-    //                 $_SESSION['error'] = "Erreur lors de la mise à jour du chapitre : " . $e->getMessage();
-    //             }
-    //         } else {
-    //             $_SESSION['error'] = "L'identifiant du chapitre doit être valide et le titre ne peut pas être vide.";
-    //         }
-    //     }
-    //     header('Location: ' . APP_ROOT . '/adminChapter?categoryId=' . $_GET['categoryId']);
-    //     exit();
-    // }
-
     public function updateChapter(): void
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['chap_id'], $_POST['edit_chap_name'])) {
-        $chapitreId = (int)$_POST['chap_id'];
-        $newTitle = trim($_POST['edit_chap_name']);
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['chap_id'], $_POST['edit_chap_name'])) {
+            $chapitreId = (int)$_POST['chap_id'];
+            $newTitle = trim($_POST['edit_chap_name']);
 
-        if ($chapitreId > 0 && !empty($newTitle)) {
-            try {
-                // Création de l'objet Chapter
-                $existingChapter = $this->daoPedacode->selectChapitreById($chapitreId);
-                $category = $existingChapter->getCategory();
+            if ($chapitreId > 0 && !empty($newTitle)) {
+                try {
+                    // Création de l'objet Chapter
+                    $existingChapter = $this->daoPedacode->selectChapitreById($chapitreId);
+                    $category = $existingChapter->getCategory();
 
-                $chapter = new Chapter($chapitreId, $newTitle, $category);
+                    $chapter = new Chapter($chapitreId, $newTitle, $category);
 
-                // Mise à jour du chapitre via DaoPedacode
-                $updated = $this->daoPedacode->updateChapitre($chapter);
-                if ($updated) {
-                    $_SESSION['message'] = "Chapitre mis à jour avec succès.";
-                } else {
-                    $_SESSION['error'] = "Mise à jour du chapitre échouée.";
+                    // Mise à jour du chapitre via DaoPedacode
+                    $updated = $this->daoPedacode->updateChapitre($chapter);
+                    if ($updated) {
+                        $_SESSION['message'] = "Chapitre mis à jour avec succès.";
+                    } else {
+                        $_SESSION['error'] = "Mise à jour du chapitre échouée.";
+                    }
+                } catch (\Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de la mise à jour du chapitre : " . $e->getMessage();
                 }
-            } catch (\Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la mise à jour du chapitre : " . $e->getMessage();
+            } else {
+                $_SESSION['error'] = "L'identifiant du chapitre doit être valide et le titre ne peut pas être vide.";
             }
-        } else {
-            $_SESSION['error'] = "L'identifiant du chapitre doit être valide et le titre ne peut pas être vide.";
         }
+        header('Location: ' . APP_ROOT . '/adminChapter?categoryId=' . $_GET['categoryId']);
+        exit();
     }
-    header('Location: ' . APP_ROOT . '/adminChapter?categoryId=' . $_GET['categoryId']);
-    exit();
-}
 
 
     //#######################//
@@ -399,7 +365,6 @@ class CtrlPedacode
         // Afficher la vue avec les leçons liées au chapitre
         require './view/admin/vadminLesson.php';
     }
-
 
     public function getAdminEditLesson(): void
     {
@@ -446,7 +411,7 @@ class CtrlPedacode
         if ($lessonToEdit->getIdSub() === 2) {
             $abonnementChecked = 'checked';
         }
-        
+
         // Récupérer les chapitres pour la liste déroulante
         $chapters = $this->daoPedacode->getChapitresByCategory($categoryId);
         if (empty($chapters)) {
@@ -458,61 +423,38 @@ class CtrlPedacode
         require './view/admin/vadminEditLesson.php';
     }
 
-    // public function addLessonByChapter(): void
-    // {
-    //     $chapterId = intval($_GET['chapitreId']);
-    //     $lessonTitle = $_POST['addLesson'];
-
-    //     if ($chapterId <= 0 || empty($lessonTitle)) {
-    //         throw new \Exception("Paramètres invalides pour ajouter une leçon.");
-    //     }
-
-    //     try {
-    //         $result = $this->daoPedacode->addLessonByChapter($chapterId, $lessonTitle);
-    //         if ($result) {
-    //             header("Location: " . APP_ROOT . "/adminLesson?chapitreId=" . $chapterId . "&categoryId=" . $_GET['categoryId']);
-    //             exit();
-    //         } else {
-    //             throw new \Exception("Échec de l'ajout de la leçon.");
-    //         }
-    //     } catch (\Exception $e) {
-    //         error_log("Erreur lors de l'ajout de la leçon : " . $e->getMessage());
-    //         throw $e;
-    //     }
-    // }
-
     public function addLessonByChapter(): void
-{
-    $chapterId = intval($_GET['chapitreId']);
-    $lessonTitle = $_POST['addLesson'];
+    {
+        $chapterId = intval($_GET['chapitreId']);
+        $lessonTitle = $_POST['addLesson'];
 
-    if ($chapterId <= 0 || empty($lessonTitle)) {
-        throw new \Exception("Paramètres invalides pour ajouter une leçon.");
-    }
-
-    try {
-        // Récupération de l'objet Chapter à partir de l'ID
-        $chapter = $this->daoPedacode->selectChapitreById($chapterId);
-        if (!$chapter) {
-            throw new \Exception("Chapitre introuvable.");
+        if ($chapterId <= 0 || empty($lessonTitle)) {
+            throw new \Exception("Paramètres invalides pour ajouter une leçon.");
         }
 
-        // Création de l'objet Lesson
-        $lesson = new Lesson(0, $chapter, null, $lessonTitle, null);
+        try {
+            // Récupération de l'objet Chapter à partir de l'ID
+            $chapter = $this->daoPedacode->selectChapitreById($chapterId);
+            if (!$chapter) {
+                throw new \Exception("Chapitre introuvable.");
+            }
 
-        // Ajout de la leçon via la méthode DAO
-        $result = $this->daoPedacode->addLessonByChapter($chapter, $lesson);
-        if ($result) {
-            header("Location: " . APP_ROOT . "/adminLesson?chapitreId=" . $chapterId . "&categoryId=" . $_GET['categoryId']);
-            exit();
-        } else {
-            throw new \Exception("Échec de l'ajout de la leçon.");
+            // Création de l'objet Lesson
+            $lesson = new Lesson(0, $chapter, null, $lessonTitle, null);
+
+            // Ajout de la leçon via la méthode DAO
+            $result = $this->daoPedacode->addLessonByChapter($chapter, $lesson);
+            if ($result) {
+                header("Location: " . APP_ROOT . "/adminLesson?chapitreId=" . $chapterId . "&categoryId=" . $_GET['categoryId']);
+                exit();
+            } else {
+                throw new \Exception("Échec de l'ajout de la leçon.");
+            }
+        } catch (\Exception $e) {
+            error_log("Erreur lors de l'ajout de la leçon : " . $e->getMessage());
+            throw $e;
         }
-    } catch (\Exception $e) {
-        error_log("Erreur lors de l'ajout de la leçon : " . $e->getMessage());
-        throw $e;
     }
-}
 
     public function deleteLesson(): void
     {
@@ -547,7 +489,7 @@ class CtrlPedacode
         if ($chapterId <= 0) {
             throw new \Exception("Identifiant de chapitre invalide.");
         }
-    
+
         $lessonId = isset($_GET['lessonId']) ? (int)$_GET['lessonId'] : 0;
         $lessonTitle = isset($_POST['title-lesson']) ? $_POST['title-lesson'] : '';
         $lessonInstructions = isset($_POST['instruction']) ? $_POST['instruction'] : '';
@@ -562,17 +504,17 @@ class CtrlPedacode
         if ($lessonId <= 0 || empty($lessonTitle) || empty($lessonInstructions) || $sub <= 0) {
             throw new \Exception("Paramètres invalides pour la mise à jour de la leçon.");
         }
-    
-        $existingChapter = $this->daoPedacode->selectChapitreById($chapterId); 
+
+        $existingChapter = $this->daoPedacode->selectChapitreById($chapterId);
         $lesson = new Lesson(
             $lessonId,
-            $existingChapter, 
+            $existingChapter,
             $sub,
             $lessonTitle,
             $lessonInstructions
         );
 
-    
+
         try {
             $result = $this->daoPedacode->updateLesson($lesson);
             if ($result) {
@@ -586,9 +528,6 @@ class CtrlPedacode
             throw $e;
         }
     }
-    
-
-
 
     // ################################
     // ######### AJAX section #########
@@ -596,36 +535,27 @@ class CtrlPedacode
 
     function loadUserDataFromSlot(): void
     {
-
-
         $slotIndex = isset($_GET['slotIndex']) ? intval($_GET['slotIndex']) : -1;
 
         if (!is_numeric($slotIndex) || $slotIndex < 0 || $slotIndex > CtrlPedacode::MAX_SAVE_SLOTS) {
             throw new \Exception(Message::INVALID_WORKSPACE_PLAYG_SLOT . ' : ' . $slotIndex);
         }
         $dataCodeArr = $this->daoPedacode->getCodeFromPlaygSlot($slotIndex, $_SESSION['id']);
-
         $encodedData = json_encode($dataCodeArr);
-
         echo $encodedData ? $encodedData : '';
         exit();
     }
 
     function deleteUserDataFromSlot(): void
     {
-
-
         $slotIndex = isset($_POST['slotIndex']) ? intval($_POST['slotIndex']) : -1;
-
         if (!is_numeric($slotIndex) || $slotIndex < 0 || $slotIndex > CtrlPedacode::MAX_SAVE_SLOTS) {
             throw new \Exception(Message::INVALID_WORKSPACE_PLAYG_SLOT . ' : ' . $slotIndex);
         }
         $workspaceId = $this->daoPedacode->getPlaygWorkspaceIdByUserId($slotIndex, $_SESSION['id']);
-
         if ($workspaceId !== null) {
             $this->daoPedacode->deletePlaygWorkspace($workspaceId);
         }
-
         exit();
     }
 
@@ -637,15 +567,11 @@ class CtrlPedacode
         // langage_name: liveEditor.getLangage(),
         // langage_extension: liveEditor.getLangagePretty()
 
-
-
         $workspaceData = json_decode($_POST['dataJson'], true);
         $slotIndex = isset($workspaceData['slot_index']) ? intval($workspaceData['slot_index']) : -1;
-
         if (!is_numeric($slotIndex) || $slotIndex < 0 || $slotIndex > CtrlPedacode::MAX_SAVE_SLOTS) {
             throw new \Exception(Message::INVALID_WORKSPACE_PLAYG_SLOT . ' : ' . $slotIndex);
         }
-
         if (
             !isset($workspaceData['code_data']) && !is_string($workspaceData['code_data'])
             || !isset($workspaceData['langage_name']) && !is_string($workspaceData['langage_name'])
@@ -653,14 +579,10 @@ class CtrlPedacode
         ) {
             throw new \Exception(Message::INVALID_JSON_DATA);
         }
-
         $langage = $this->daoPedacode->getLangageByName($workspaceData['langage_name']);
-
         // le langage est invalide ou n'existe pas dans la bdd
         // if ($langage === null) { return ''; } // TODO : throw error
-
         $workspaceId = $this->daoPedacode->getPlaygWorkspaceIdByUserId($slotIndex, $_SESSION['id']);
-
         // current workspace is null, create it
         if ($workspaceId === null) {
             $workspaceId = $this->daoPedacode->addPlaygWorkspace($_SESSION['id'], $workspaceData['name_workspace'], $slotIndex);
@@ -669,14 +591,11 @@ class CtrlPedacode
         else {
             $this->daoPedacode->updatePlaygWorkspaceName($workspaceId, $workspaceData['name_workspace']);
         }
-
         // delete all code from workspace byb id
         $this->daoPedacode->deleteCodeFromWorkspace($workspaceId);
-
         // insert new codes
         $dataCode = new DataCode($workspaceId, $workspaceData['code_data'], $langage);
         $this->daoPedacode->addCodeFromWorkspace($dataCode);
-
         // TODO : return date if there is no name
         echo $workspaceData['name_workspace'];
         exit();
